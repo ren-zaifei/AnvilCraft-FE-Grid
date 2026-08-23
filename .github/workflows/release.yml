@@ -76,7 +76,6 @@ jobs:
 
           dependencies: |
             anvilcraft@1.21.1-1.6.0(required){modrinth:vuISAWPc}
-            ae2@19.2.17(required){modrinth:XxWD5pD3}
 
           files: |
             build/libs/${{ steps.properties.outputs.mod_id }}-neoforge-${{ steps.version.outputs.version }}.jar

@@ -1,8 +1,10 @@
 {
   "required": true,
-  "package": "com.renzaifei.anvilcraftappliedgrid.mixin",
+  "package": "com.renzaifei.anvilcraftfegrid.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "PowerGridMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },

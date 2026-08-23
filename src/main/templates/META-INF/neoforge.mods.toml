@@ -17,17 +17,15 @@ displayName="${mod_name}" #mandatory
 
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+displayURL="https://github.com/ren-zaifei/AnvilCraft-FE-Grid" #optional
 
-#logoFile="examplemod.png" #optional
+logoFile="logo.png" #optional
 
 #credits="" #optional
 
 authors="renzaifei"
 
-description='''
-An addon for AnvilCraft that seamlessly integrates Applied Energistics 2 devices into the AnvilCraft power grid system.
-'''
+description='''${mod_description}'''
 
 [[mixins]]
 config="${mod_id}.mixins.json"
@@ -50,6 +48,13 @@ config="${mod_id}.mixins.json"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId = "anvilcraft"
+    type = "required"
+    versionRange = "[1.6.0,)"
+    ordering = "NONE"
+    side = "BOTH"
 
 #[features.${mod_id}]
 #openGLVersion="[3.2,)"
