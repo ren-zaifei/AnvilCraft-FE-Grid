@@ -20,7 +20,7 @@ jobs:
         uses: christian-draeger/read-properties@1.1.1
         with:
           path: gradle.properties
-          properties: 'mod_id mod_name java_version modrinth_id upload'
+          properties: 'mod_id mod_name java_version modrinth_id upload mod_version minecraft_version'
 
       - name: Setup Java ${{ steps.properties.outputs.java_version }}
         uses: actions/setup-java@v3.6.0
@@ -41,19 +41,23 @@ jobs:
       - name: Get Version
         id: version
         run: |
-          MESSAGE=$(ls build/libs/* | grep sources.jar -v | grep shadow.jar -v | grep slim.jar -v | awk -F '${{ steps.properties.outputs.mod_id }}-neoforge-|.jar' '{print $2}')
-          echo "version=$MESSAGE" >> $GITHUB_OUTPUT
+          echo "version=${{ steps.properties.outputs.mod_version }}" >> $GITHUB_OUTPUT
+          echo "jar=build/libs/${{ steps.properties.outputs.mod_id }}-${{ steps.properties.outputs.minecraft_version }}-${{ steps.properties.outputs.mod_version }}.jar" >> $GITHUB_OUTPUT
+
+      - name: Verify jar exists
+        run: ls -l '${{ steps.version.outputs.jar }}'
 
       - name: capture build artifacts
         uses: actions/upload-artifact@v4.3.3
         with:
           name: "${{ steps.properties.outputs.mod_name }} ${{ steps.version.outputs.version }}"
-          path: build/libs/${{ steps.properties.outputs.mod_id }}-neoforge-${{ steps.version.outputs.version }}.jar
+          path: ${{ steps.version.outputs.jar }}
+          if-no-files-found: error
 
       - name: Upload Release Jar
         run: |
-          gh release upload ${{ github.event.release.tag_name }} \
-            build/libs/${{ steps.properties.outputs.mod_id }}-neoforge-${{ steps.version.outputs.version }}.jar
+          gh release upload '${{ github.event.release.tag_name }}' \
+            '${{ steps.version.outputs.jar }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -78,5 +82,4 @@ jobs:
             anvilcraft@1.21.1-1.6.0(required){modrinth:vuISAWPc}
 
           files: |
-            build/libs/${{ steps.properties.outputs.mod_id }}-neoforge-${{ steps.version.outputs.version }}.jar
-            build/libs/${{ steps.properties.outputs.mod_id }}-neoforge-${{ steps.version.outputs.version }}-sources.jar
+            ${{ steps.version.outputs.jar }}
