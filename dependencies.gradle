@@ -1,0 +1,14 @@
+dependencies {
+    // Anvil Lib
+    runtimeOnly(libs.anvillib)
+    compileOnly(libs.bundles.anvillib)
+    interfaceInjectionData(libs.anvillib.recipe)
+    interfaceInjectionData(libs.anvillib.moveableEntityBlock)
+
+    // AnvilCraft
+    implementation(libs.anvilcraft) { transitive = false }
+    interfaceInjectionData(libs.anvilcraft) { transitive = false }
+
+    //ae2
+    implementation(libs.ae2)
+}
