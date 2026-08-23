@@ -40,7 +40,7 @@ public abstract class PowerGridMixin implements FEGridHolder {
     private void anvilcraftfegrid$appendDemand(CallbackInfoReturnable<Boolean> cir) {
         PowerGrid grid = (PowerGrid) (Object) this;
         int demand = FEGridBridge.computeDemand(grid, this.anvilcraftfegrid$feState());
-        if (demand > 0) this.consume += demand;
+        if (demand > 0) this.consume = (int) Math.min(Integer.MAX_VALUE, (long) this.consume + demand);
     }
 
     /**
