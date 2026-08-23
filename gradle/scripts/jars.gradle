@@ -12,5 +12,5 @@ jar {
 }
 
 base {
-    archivesName = "${project.name}-${libs.versions.minecraft.get()}"
+    archivesName = "${project.mod_id}-${libs.versions.minecraft.get()}"
 }
