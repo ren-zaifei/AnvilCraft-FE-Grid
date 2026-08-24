@@ -70,6 +70,7 @@ jobs:
           version: ${{ steps.version.outputs.version }}
           game-versions: 1.21.1
           version-type: ${{ env.VERSION_TYPE }}
+          environment: server
           java: 21
           fail-mode: skip
           changelog: ${{ github.event.release.body }}
